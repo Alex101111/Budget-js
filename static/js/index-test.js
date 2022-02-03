@@ -34,6 +34,9 @@ montant.value = 0
 items.value = ''
 
 
+trashValue=0
+
+
 
 
 budgetGlobal.addEventListener('keyup', autoComplete)
@@ -87,12 +90,19 @@ function calcBalance() {
 
 
     balanceInit = budgetGlobal.value - depenseInt
+   
+    console.log('balanceInit'+ balanceInit)
 
     balance.textContent = balanceInit
 
     if (balance.textContent < 0) {
 
         balance.style.color = 'red'
+
+    }
+    else{
+
+        balance.style.color = 'black'
     }
 
 }
@@ -134,7 +144,7 @@ function creatDivs() {
     trashArray.push(div)
 
 
-   console.log(trashArray)
+
 
 
 
@@ -153,34 +163,27 @@ function creatDivs() {
            console.log(depenseInt)
 
             let test =trashArray.indexOf(div)
+            console.log(test)
 
-            balanceInit+=+informationArray[test].montant
+            trashValue= +balanceInit+Number(informationArray[test].montant)
+
+           console.log('balance init'+balanceInit)
+            console.log(' trash value' +trashValue)
+        
+            balanceInit=trashValue
 
             balance.textContent=balanceInit
 
-            depenseInt+=+informationArray[test].montant
+            depenseInt-=+informationArray[test].montant
+
             depense.textContent=depenseInt
 
 
-            console.log(balanceInit)
-
-            console.log(test)
-
-//for(i=0;i<informationArray.length;i++){
-
-        //  
-         
-       //   console.log((informationArray[i].montant))
-        //    
-//
-        //    balance.textContent=balanceInit
-      //      
-           
-   //   }
+    return
 
         }
     
-
+        
 
 }
 
@@ -190,12 +193,26 @@ function creatDivs() {
 reset = document.querySelector('.reset-btn')
 
 
-reset.addEventListener('click', resetAll)
 
 
 
-function resetAll() {
 
+
+// needs some work !!
+
+
+
+/* 
+
+    reset.addEventListener('click', resetAll)
+
+
+    function resetAll() {
+    
+    delTrash()
+
+    informationArray=[]
+    trashArray=[]
 
     console.log('works§')
 
@@ -217,10 +234,9 @@ function resetAll() {
 
     document.querySelector('#montant').value = 0
 
-    trashArray = []
-    console.log(trashArray)
+    
 
 
-    div.remove()
-}
+    
+}*/
 
