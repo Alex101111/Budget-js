@@ -11,6 +11,28 @@ let depense = document.querySelector('.expense> span')
 
 let addBtn = document.querySelector('.add-btn')
 
+let balance = document.querySelector('.balance span')
+
+let items = document.getElementById('depense')
+
+let list = document.querySelector('.expenses-list')
+
+let informationArray=[]
+
+
+
+// initial values 
+
+let depenseInt = 0
+
+let balanceInit = 0
+
+budgetGlobal.value = 0
+
+montant.value = 0
+
+items.value = ''
+
 
 
 
@@ -22,9 +44,7 @@ function autoComplete() {
 
 }
 
-let depenseInt = 0
 
-let balanceInit = 0
 
 
 addBtn.addEventListener('click', calcs)
@@ -34,7 +54,22 @@ function calcs() {
     calcDepense()
     calcBalance()
     creatDivs()
+    
+    informationArray.push({'globalBudget' : budgetGlobal.value,
+                           'depense' : items.value,
+                           'montant' : montant.value} )
 
+
+                           
+
+
+                           console.log(informationArray)
+                           
+
+
+                          
+console.log(balanceInit)
+                           
 
 }
 
@@ -44,16 +79,12 @@ function calcDepense() {
 
     depenseInt += +montant.value
 
-    console.log(depenseInt)
-
     depense.textContent = depenseInt
-
-
 }
 
 
 function calcBalance() {
-    let balance = document.querySelector('.balance span')
+
 
     balanceInit = budgetGlobal.value - depenseInt
 
@@ -64,17 +95,16 @@ function calcBalance() {
         balance.style.color = 'red'
     }
 
-
 }
 
-let trashArray = []
 
+let trashArray=[]
 function creatDivs() {
 
-    depenseType = document.getElementById('depense').value
+    let depenseType = items.value
 
 
-    list = document.querySelector('.expenses-list')
+    
 
     let div = document.createElement('div')
 
@@ -96,33 +126,61 @@ function creatDivs() {
 
     div.append(divDel)
 
-    p.textContent = depenseType + ' ' + depense.textContent
+    p.textContent = depenseType + ' ' + montant.value
 
     list.append(div)
+    
+
+    trashArray.push(div)
 
 
-trashArray.push(depenseInt)
-
-
-console.log(trashArray)
-
-
-
+   console.log(trashArray)
 
 
 
-    for (i = 0; i < trashArray.length; i++) {
 
 
         img.addEventListener('click', delTrash)
 
+
+
         function delTrash() {
 
+
+
             div.remove()
+        
+           console.log(depenseInt)
+
+            let test =trashArray.indexOf(div)
+
+            balanceInit+=+informationArray[test].montant
+
+            balance.textContent=balanceInit
+
+            depenseInt+=+informationArray[test].montant
+            depense.textContent=depenseInt
+
+
+            console.log(balanceInit)
+
+            console.log(test)
+
+//for(i=0;i<informationArray.length;i++){
+
+        //  
+         
+       //   console.log((informationArray[i].montant))
+        //    
+//
+        //    balance.textContent=balanceInit
+      //      
            
+   //   }
+
         }
-    }
-    return
+    
+
 
 }
 
@@ -159,7 +217,7 @@ function resetAll() {
 
     document.querySelector('#montant').value = 0
 
-    trashArray=[]
+    trashArray = []
     console.log(trashArray)
 
 
